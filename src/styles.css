@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #070809;
+  --color-surface: #121316;
+  --color-raised: #1a1c1f;
+  --color-fg: #f0f1f0;
+  --color-muted: #8c908c;
+  --color-subtle: #5e625e;
+  --color-border: #2c2e30;
+  --color-accent: #d4d7d2;
+  --color-accent-fg: #0a0b0c;
+  --color-aqua: #9ed9d1;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman",
+    serif;
+  --text-display: clamp(3.5rem, 12vw, 6.5rem);
+  --text-phase: clamp(1.35rem, 3.2vw, 1.9rem);
+  --tracking-display: -0.03em;
+  --tracking-kicker: 0.22em;
+  --tracking-label: 0.16em;
+  --duration-250: 250ms;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+:root {
+  color-scheme: dark;
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-border-hover: 0 0 0 1px rgba(255, 255, 255, 0.14);
+  --motion-stagger: 40ms;
+  --motion-micro: 80ms;
+  --motion-quick: 150ms;
+  --motion-fast: 250ms;
+  --motion-slow: 400ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@layer base {
+  html {
+    height: 100%;
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+.enter-1,
+.enter-2,
+.enter-3,
+.enter-4 {
+  animation: rise-in var(--motion-slow) var(--ease-smooth-out) both;
+}
+
+.enter-1 {
+  animation-delay: 0ms;
+}
+.enter-2 {
+  animation-delay: 80ms;
+}
+.enter-3 {
+  animation-delay: 160ms;
+}
+.enter-4 {
+  animation-delay: 240ms;
+}
+
+.phase-in {
+  animation: rise-in var(--motion-fast) var(--ease-smooth-out) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 72% 68% at 50% 46%,
+    transparent 0%,
+    color-mix(in oklab, var(--color-bg) 42%, transparent) 100%
+  );
+}
+
+.progress-fill {
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--color-aqua);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-1,
+  .enter-2,
+  .enter-3,
+  .enter-4,
+  .phase-in {
+    animation: none;
+  }
+}
